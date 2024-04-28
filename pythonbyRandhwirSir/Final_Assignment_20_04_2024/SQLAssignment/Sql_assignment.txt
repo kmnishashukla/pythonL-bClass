@@ -1,0 +1,98 @@
+Question1:
+
+Write a solution to find the users who have valid emails
+
+Answer:
+
+show databases;  // for showing all database
+create database finalAssignment;     //for craete new database
+use finalAssignment;         // for database select
+create table Users(
+user_id int NOT NULL AUTO_INCREMENT,
+name varchar(255) NOT NULL,
+mail varchar(255),
+PRIMARY KEY (user_id)); // for create table
+show tables; // for show all tables
+insert into finalAssignment.Users
+values ('1','Winston','winston@leetcode.com'),('2','Jonathan','jonathanisgreat'),('3','Annabelle','bella-@leetcode.com'),
+('4','Sally','sally.come@leetcode.com'),('5','Marwan','quarz#2020@leetocde.com')
+,('6','David','david69@gmail.com'),('7','Shapiro','.shap@leetocde.com'); // for inserting data in table
+select * from finalAssignment.Users where mail like '%@leetcode.com'; //select  user with valid email id
+
+
+******************************************************************************************************************
+
+Question2:
+
+Write a solution to find for each date the number of different products sold and their names
+
+Answer:
+
+create table finalAssignment.Activities(
+sell_date date NOT NULL,
+product varchar(255) NOT NULL);  // for create table
+insert into finalAssignment.Activities values ('2020-05-30','Headphone'),('2020-06-01','Pencil'),
+('2020-06-02','Mask'),('2020-05-30','Basketball'),('2020-06-01','Bible'),
+('2020-06-02','Mask'),('2020-05-30','T-Shirt'); // for inserting data in table
+select count(distinct(product)) as product_count , sell_date from finalAssignment.Activities group by sell_date; //select Group sold product by date
+
+
+************************************************************************************************************************
+Qusetion3:
+
+Write a solution to find the second highest salary from the Employee table. If there is no second highest salary, return null (return None in
+Pandas).
+
+Answer:
+
+create table finalAssignment.Employee(
+id  int primary key NOT NULL,
+salary int NOT NULL); // for create table
+insert into finalAssignment.Employee values ('1','100'),('2','200'),('3','300'); //  for inserting data in table
+use finalAssignment; // used databse
+select * from Employee order by  salary desc limit 1,1; // for select Second highest salary
+
+*************************************************************************************************************************
+
+Question 4:
+
+Write a solution to delete all duplicate emails, keeping only one unique email with the smallest id
+
+Answer:
+
+create table finalAssignment.Person(
+id  int primary key NOT NULL,
+email varchar(255) NOT NULL); // for create table
+insert into finalAssignment.Person values ('1','john@example.com'),('2','john@example.com'),('3','john@example.com'); //  for inserting data in table
+WITH DuplicateEmails AS ( SELECT id, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS row_num FROM finalAssignment.Person) DELETE FROM finalAssignment.Person 
+WHERE id IN (SELECT id FROM DuplicateEmails WHERE row_num > 1); // for Delete duplicate emails
+select * from finalAssignment.Person; // for verify duplicate email deleting or not
+ 
+
+*****************************************************************************************************
+Question 5:
+
+Write a solution to find the patient_id, patient_name, and conditions of the patients who have Type I Diabetes. Type I Diabetes always starts
+with DIAB1 prefix.
+
+Answer:
+
+create table finalAssignment.Patients(patient_id int, patient_name varchar(255),conditions varchar(255));
+insert into finalAssignment.Patients values ('1','Daniel','YFEVCOUGH'),('2','Alice',' NA '),('3','Bob','DIAB100 MYOP'),('4','George','ACNE DIAB100'),('5','Alain','DIAB201');
+select * from  finalAssignment.Patients ;
+select * from finalAssignment.Patients where conditions like 'DIAB1%'; // for select starts with DIAB1 prefix
+select * from finalAssignment.Patients where conditions like '%DIAB1%'; // for selecting any place in conditions field
+
+
+
+
+
+
+
+
+
+
+
+
+
+
