@@ -1,0 +1,56 @@
+1. Create a database and import the "sales_data.csv" dataset into a table.
+Write a SQL query to retrieve the total sales and average discount for
+each product category and customer segment.
+
+Ans:
+show databases;  // for showing all database
+create database finalAssignment;     //for craete new database
+use finalAssignment;         // for database select
+select product_category, sum(sales) , avg(discount) from sales_data group by product_category;
+
+
+
+
+
+2. Write a SQL query to join the sales data table with a product details
+table (you can create a dummy product details table) based on the
+product ID, and retrieve the product name and description along with
+the sales data.
+
+Ans: 
+    create table finalAssignment.productDetails (
+    productId int primary key NOT NULL AUTO_INCREMENT,
+    productName varchar(255) NOT NULL,
+    productDescription varchar(255)
+    ); // for create table
+    show tables; // for show all tables
+    insert into productDetails values (1,'Printer','Electronics items'),(2,'Fax','Electronics items'),(3,'Digital Camera','Electronics items'),(4,'Radio','Electronics'),(5,'Chair','Furniture items');
+
+    select * from finalAssignment.productDetails;
+
+    create table finalAssignment.salesProductDetails as select spd.*, pd.productName, pd.productDescription from finalAssignment.sales_data spd join productDetails pd on spd.productId = pd.productId;
+
+    select * from finalAssignment.salesProductDetails;
+
+
+
+3. Create a new table to store monthly sales data by aggregating the
+sales data based on the order date. Write a SQL query to calculate the
+month-over-month growth rate for total sales.
+
+
+
+
+4. Write a SQL query to retrieve the top 10 customers based on total
+sales, and include their customer name, total sales, and average
+discount.
+
+Ans: 
+   select productId , customerId, sum(sales) as totalSales from finalAssignment.salesProductDetails group by productId, customerId order by totalSales desc limit 10;
+
+
+5. Perform any additional data analysis or manipulation tasks on the sales
+data using SQL queries, and submit your code and findings.
+
+
+
